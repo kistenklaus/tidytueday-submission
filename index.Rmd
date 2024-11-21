@@ -1,0 +1,14 @@
+---
+title: "Impact of chess elo ratings"
+---
+
+LOREM IPSUM INTRODUCTION ELOREM
+
+#### Hypothesis
+LOREM IPSUM
+
+#### Evaluation
+LOREM ISPUM
+
+#### Conclusion
+LOREM ISPUM

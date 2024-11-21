@@ -1,0 +1,12 @@
+---
+title: "About this document"
+---
+
+Why did we write it? ("We wrote this as part of a course at KIT, 
+**Data-Literacy in R**.....)
+
+#### Contributors
+Our names
+
+#### Special thanks
+cite package maintainers
