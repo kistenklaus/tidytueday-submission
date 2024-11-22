@@ -6,6 +6,11 @@ title: "Impact of chess elo ratings"
 LOREM IPSUM INTRODUCTIO ELOREM
 
 #### Hypothesis
+1. Games with higher rating more likely end with resign than games with lower rating
+2. At lower ratings the difference between black and white is neglegible
+3. The higher the rating the more likely games are to have more turns.
+4. Games with lower time control end more likely with mate or out of time.
+
 LOREM IPSUM
 
 Approach 1:
