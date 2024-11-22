@@ -2,13 +2,133 @@
 title: "Impact of chess elo ratings"
 ---
 
-LOREM IPSUM INTRODUCTION ELOREM
+
+LOREM IPSUM INTRODUCTIO ELOREM
 
 #### Hypothesis
 LOREM IPSUM
 
+Approach 1:
+What stats do we want:
+- winner_rating
+- loser_rating
+Plot winner_rating - loser_ratings over winner_rating / loser_rating
+
+What are we doing with draws?
+
+Approach 2:
+We need 
+- underdog_rating
+- topdog_rating
+- winner_dog
+- diff = topdog_rating - underdog_rating
+Plot histogram of loses draws and wins.
+
+
+
+
+Apprach Kaffepause:
+
+1. Plot Histogram (topdog_rating - underdog_rating) 
+
+
 #### Evaluation
-LOREM ISPUM
+##### Prerequisits
+``` {r message=FALSE}
+library(remotes)
+options(repos = "https://cloud.r-project.org/")
+if (!require("easypackages")) {
+  install.packages("easypackages")
+  library(easypackages)
+} else {
+  library(easypackages)
+}
+packages(
+  "tidyverse",
+  "tidytuesdayR",
+  "dplyr",
+  "readr",
+  prompt = FALSE
+)
+```
+##### Loading data
+```{r message=FALSE}
+tuesday_chess <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-10-01/chess.csv')
+head(tuesday_chess)
+```
+##### Preprocessing
+```{r}
+chess <- tuesday_chess %>%
+  dplyr::filter(rated=TRUE) %>%
+  dplyr::select(winner, white_rating, black_rating, white_id, black_id, end_time)
+head(chess)
+
+extra <- chess %>% 
+  dplyr::filter(winner != "draw") %>%
+  dplyr::mutate(winner_rating = ifelse(winner == "white", white_rating, black_rating)) %>%
+  dplyr::mutate(loser_rating = ifelse(winner == "white", black_rating, white_rating))
+  
+extra <- extra %>%
+  mutate(
+    rating_diff = winner_rating - loser_rating,  # Difference between winner and loser rating
+    rating_ratio = loser_rating / winner_rating  # Ratio of winner to loser rating
+  )
+
+
+# Create the plot
+ggplot(extra, aes(x = rating_ratio, y = rating_diff)) +
+  geom_point(alpha = 0.6, color = "steelblue") +  # Scatter plot
+  geom_smooth(method = "lm", se = FALSE, color = "red") +  # Optional trendline
+  labs(
+    title = "Rating Difference vs. Rating Ratio",
+    x = "Winner Rating / Loser Rating",
+    y = "Winner Rating - Loser Rating"
+  ) +
+  theme_minimal()
+
+
+
+player_ratings <- chess %>%
+  pivot_longer(
+    cols = c(white_rating, black_rating),
+    names_to = "pivot_label",
+    values_to = "rating"
+  ) %>%
+  mutate(player_id = ifelse(pivot_label == "white_rating", white_id, black_id)) %>%
+  select(player_id, rating, end_time) %>%
+  group_by(player_id) %>%
+  summarise(
+    max_rating = max(rating),
+    min_rating = min(rating),
+    avg_rating = mean(rating),
+    rating = rating[which.max(end_time)],  
+    games_played = n()
+  ) %>%
+  ungroup()
+head(player_ratings)
+
+ggplot(player_ratings, aes(x = rating)) +
+  geom_histogram(
+    aes(y = after_stat(count) / sum(after_stat(count)) * 100),
+    binwidth = 50,
+    fill = "steelblue",
+    color = "black",
+    alpha = 0.7
+  ) +
+  labs(
+    title = "Histogram of Average Player Ratings",
+    x = "Rating",
+    y = "Percentage of Players"
+  ) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1)) +
+  theme_minimal()
+
+
+
+```
+
+
+
 
 #### Conclusion
 LOREM ISPUM
