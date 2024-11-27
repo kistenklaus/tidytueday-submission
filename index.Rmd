@@ -2,46 +2,54 @@
 title: "Impact of chess elo ratings"
 ---
 
+# Preface
+In this paper, we present a brief empirical analysis of the dataset from Week 40 of the Tidytuesday project. Tidytuesday is an open-source initiative within the R community that encourages participants to conduct small-scale analyses and create visualizations based on datasets provided weekly.
 
-LOREM IPSUM INTRODUCTIO ELOREM
+The Week 40 dataset originates from a popular online chess platform and includes a subset of games played on the site.
 
-#### Hypothesis
-1. Games with higher rating more likely end with resign than games with lower rating
-2. At lower ratings the difference between black and white is neglegible
-3. The higher the rating the more likely games are to have more turns.
-4. Games with lower time control end more likely with mate or out of time.
+This work was completed as part of the 3-day seminar "Data Literacy in R" at KIT. As the contributors are neither experts in data science nor chess, we advise against using or referencing this paper in academic or professional contexts.
 
-LOREM IPSUM
+# Background
+## First move advantage
+The concept of the first-move advantage in chess has been widely recognized since 1889, when the first World Chess Champion, Wilhelm Steinitz, expressed concerns that further analysis of the game might reveal an inherent advantage for White, potentially leading to a "solved" and stagnant game.
 
-Approach 1:
-What stats do we want:
-- winner_rating
-- loser_rating
-Plot winner_rating - loser_ratings over winner_rating / loser_rating
+Empirical evidence from subsequent World Chess Championships supports the existence of this advantage. Historically, White's win rate has been consistently higher than Black's by approximately 3 to 5 percentage points. This dynamic has influenced competitive strategy, with Black often aiming to neutralize White's initiative and secure a draw. For example, the Berlin Defense has gained notoriety for forcing White to either relinquish its opening advantage or enter draw-prone positions.
 
-What are we doing with draws?
+Modern chess engines, such as Stockfish, further illustrate the complexities of the first-move advantage. When Stockfish plays against itself, games where White wins are more frequent than games where Black wins, although the vast majority of games still end in a draw. This pattern highlights White's ability to retain a slight edge in optimal play scenarios, even against a perfectly rational opponent.
 
-Approach 2:
-We need 
-- underdog_rating
-- topdog_rating
-- winner_dog
-- diff = topdog_rating - underdog_rating
-Plot histogram of loses draws and wins.
+At the highest levels of chess, this phenomenon has contributed to concerns about the game's stagnation. Bobby Fischer, one of the greatest chess players in history, introduced Fischer Random Chess (also known as Chess960) as an alternative. By randomizing the initial piece setup, Fischer sought to reduce reliance on opening theory and emphasize creativity and tactical skill. Notably, the first-move advantage in Fischer Random is less pronounced, as even professional players tend to make less optimal moves in uncharted positions, diminishing White's edge.
+
+Today, the first-move advantage is universally acknowledged by players and theorists alike. Competitive preparation often involves strategies and openings specifically designed to address this imbalance. Moreover, it is theorized—and supported by empirical data—that the first-move advantage becomes more significant as players approach near-perfect play.
 
 
+## Chess Rating system
+The original chess rating system, known as the Elo system, was introduced in 1950 by Arpad Elo. It assigns players a rating typically ranging from 1000 to 2800 for most competitive players, though theoretically, ratings can extend beyond this range. The system models a player’s skill as a single numerical value and predicts game outcomes based on the difference between two players' ratings. Specifically, it assumes a Gaussian (normal) distribution of player skill, with the probability of victory determined by a logistic function of the rating difference. The Elo system remains in use today by FIDE (the International Chess Federation) for over-the-board chess tournaments.
 
+While the Elo system is widely used, advancements in data collection and research on predictive models have led to the development of more sophisticated rating systems. One such system is Glicko, introduced by Mark Glickman in 1995. Glicko is currently employed by chess.com, one of the largest online chess platforms. Though originally developed for chess, Glicko has been adapted for use in ranking players in other games, such as Counter-Strike, Dota 2, and Team Fortress 2.
 
-Apprach Kaffepause:
+An enhanced version of Glicko, known as Glicko-2, was later developed to include a "rating deviation" (RD) component, which accounts for the confidence level of a player's rating. To our knowledge, the only major chess platform currently using Glicko-2 is Lichess.
 
-1. Plot Histogram (topdog_rating - underdog_rating) 
+Because these systems differ in implementation and starting points, comparing ratings between platforms can be misleading. For instance, Glicko-1 typically sets new players at an initial rating of 1000, representing the average skill level, while Glicko-2 starts players at 1500, reflecting a different baseline. As a result, direct comparisons between ratings from different systems are not meaningful.
 
+## Over-the-board chess etiquet
+In professional over-the-board chess, an interesting aspect of etiquette is the expectation to resign in clearly losing positions. Continuing to play in such situations can be perceived as disrespectful, as it implies doubt about the opponent's ability to convert an obvious advantage into victory. This expectation stems from the assumption that both players possess the skill and knowledge to recognize decisive positions, and prolonging the game unnecessarily might be seen as wasting time or challenging the opponent's competence.
 
-#### Evaluation
-##### Prerequisits
-``` {r message=FALSE}
+This cultural norm contrasts with casual or beginner-level play, where players are often encouraged to play to checkmate, as their opponent's ability to find a winning sequence may not be guaranteed.
+
+# Preliminary Analysis
+In this section we want to provide a short look at the lichess dataset to 
+evaluate its completeness. 
+In the previous section about the first move advantage, we found that in 
+professional over the board games it is generally an accepted truth that 
+the player with the white pieces has a advantage, we now aim to verify that this 
+assumption is also true for our lichess dataset. 
+To evaluate this assumption we simly compute the average win percentage across 
+all rated games in our dataset.
+```{r message=FALSE, echo=FALSE, fig.align='center'}
+rm(list = ls())
 library(remotes)
 options(repos = "https://cloud.r-project.org/")
+options(scipen = 999)
 if (!require("easypackages")) {
   install.packages("easypackages")
   library(easypackages)
@@ -55,43 +63,74 @@ packages(
   "readr",
   prompt = FALSE
 )
-```
-##### Loading data
-```{r message=FALSE}
+
 tuesday_chess <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-10-01/chess.csv')
-head(tuesday_chess)
-```
-##### Preprocessing
-```{r}
+
+# Filter and select relevant columns
 chess <- tuesday_chess %>%
-  dplyr::filter(rated=TRUE) %>%
-  dplyr::select(winner, white_rating, black_rating, white_id, black_id, end_time)
-head(chess)
+  filter(rated == TRUE) %>% # Fix logical comparison
+  select(winner)
 
-extra <- chess %>% 
-  dplyr::filter(winner != "draw") %>%
-  dplyr::mutate(winner_rating = ifelse(winner == "white", white_rating, black_rating)) %>%
-  dplyr::mutate(loser_rating = ifelse(winner == "white", black_rating, white_rating))
-  
-extra <- extra %>%
-  mutate(
-    rating_diff = winner_rating - loser_rating,  # Difference between winner and loser rating
-    rating_ratio = loser_rating / winner_rating  # Ratio of winner to loser rating
-  )
+# Converts the chess table of column winner into a 3 columns, which count the
+# amount of times a game ended with white winning, black winning or
+# the game beeing drawn
+outcomes <- table(chess$ winner)
 
+outcome_percentages <- prop.table(outcomes) * 100
 
-# Create the plot
-ggplot(extra, aes(x = rating_ratio, y = rating_diff)) +
-  geom_point(alpha = 0.6, color = "steelblue") +  # Scatter plot
-  geom_smooth(method = "lm", se = FALSE, color = "red") +  # Optional trendline
-  labs(
-    title = "Rating Difference vs. Rating Ratio",
-    x = "Winner Rating / Loser Rating",
-    y = "Winner Rating - Loser Rating"
-  ) +
-  theme_minimal()
+pie(outcome_percentages,
+    labels = paste(
+      names(outcome_percentages),
+      "(", round(outcome_percentages, 1), "%)", sep = ""),
+    col = c("lightblue", "lightgreen", "lightcoral"),
+    main = "Lichess dataset rated games outcome")
+```
+
+*The full source code is available [here](source.html)*
+
+This short preliminary analysis shows that the first move advantage is clearly
+present in our small lichess data set, which might indicate that the subsection of 
+overall games played on lichess represented in the data set if not screwed 
+in this regard.
 
 
+Next up in our background section we found that lichess is using the Glicko II system, 
+therefor our rating distribution across games should represent a normal distribution 
+around the average rating of 1500, we can verify this assumption by 
+looking at the ratings of all players in our data set.
+For this we have to be careful to not count ratings of players with more games,
+twice as those are likely to be rated higher. Luckily our data set contains a 
+player id which we can use to only count the ratings of players once.
+If multiple games for a single player exists we can pick either the most recent rating 
+or the average rating across games, as it is unclear to us if averaging the 
+ratings might lead to a statitical error we choose to select the rating of the most 
+recently played game.
+``` {r message=FALSE, echo=FALSE, fig.align='center'}
+rm(list = ls())
+
+library(remotes)
+options(repos = "https://cloud.r-project.org/")
+options(scipen = 999)
+if (!require("easypackages")) {
+  install.packages("easypackages")
+  library(easypackages)
+} else {
+  library(easypackages)
+}
+packages(
+  "tidyverse",
+  "tidytuesdayR",
+  "dplyr",
+  "readr",
+  prompt = FALSE
+)
+
+tuesday_chess <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-10-01/chess.csv')
+
+# Filter and select relevant columns
+chess <- tuesday_chess %>%
+  filter(rated == TRUE) %>% # Fix logical comparison
+  select(white_id, white_rating, black_id, black_rating, start_time)
 
 player_ratings <- chess %>%
   pivot_longer(
@@ -100,40 +139,46 @@ player_ratings <- chess %>%
     values_to = "rating"
   ) %>%
   mutate(player_id = ifelse(pivot_label == "white_rating", white_id, black_id)) %>%
-  select(player_id, rating, end_time) %>%
+  select(player_id, rating, start_time) %>%
   group_by(player_id) %>%
   summarise(
     max_rating = max(rating),
     min_rating = min(rating),
     avg_rating = mean(rating),
-    rating = rating[which.max(end_time)],  
+    rating = rating[which.max(start_time)],
     games_played = n()
   ) %>%
   ungroup()
-head(player_ratings)
 
 ggplot(player_ratings, aes(x = rating)) +
   geom_histogram(
     aes(y = after_stat(count) / sum(after_stat(count)) * 100),
-    binwidth = 50,
+    binwidth = 100,
     fill = "steelblue",
     color = "black",
     alpha = 0.7
   ) +
   labs(
-    title = "Histogram of Average Player Ratings",
+    title = "Average Player Ratings",
     x = "Rating",
     y = "Percentage of Players"
   ) +
   scale_y_continuous(labels = scales::percent_format(scale = 1)) +
   theme_minimal()
-
-
-
 ```
 
+*The full source code is available [here](source.html)*
+
+This short preliminary analysis, is yet another indicator to the completeness 
+of the lichess data set, indicating that the games represented in the dataset 
+do not represent any screw towards higher or lower rated games.
 
 
+LOREM IPSUM INTRODUCTIO ELOREM
 
-#### Conclusion
-LOREM ISPUM
+#### Hypothesis
+1. Games with higher rating more likely end with resign than games with lower rating
+2. At lower ratings the difference between black and white is neglegible
+3. The higher the rating the more likely games are to have more turns.
+4. Games with lower time control end more likely with mate or out of time.
+
