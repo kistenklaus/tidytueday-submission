@@ -4,7 +4,9 @@ bibliography: references.bib
 csl: apa.csl
 ---
 # Abstract
-TODO: AT THE END!!
+TODO: AT THE END!! :-)
+
+=^)
 
 [@rating]
 
@@ -17,7 +19,7 @@ The Week 40 dataset originates from a popular online chess platform and includes
 
 This work was completed as part of the 3-day seminar "Data Literacy in R" at KIT. As the contributors are neither experts in data science nor chess, we advise against using or referencing this paper in academic or professional contexts.
 
-# Background
+# Introduction
 ## First move advantage
 The concept of the first-move advantage in chess has been widely recognized since 1889, when the first World Chess Champion, Wilhelm Steinitz, expressed concerns that further analysis of the game might reveal an inherent advantage for White, potentially leading to a "solved" and stagnant game.
 
@@ -47,6 +49,8 @@ This cultural norm contrasts with casual or beginner-level play, where players a
 ## Time Control
 TODO
 LOREM IPSUM OLOREM
+
+## Hypothese
 
 # Preliminary Analysis
 In this section we want to provide a short look at the lichess dataset to 
@@ -213,8 +217,13 @@ less optimal play even at higher ratings.
 ### Influence of rating on game outcomes.
 TODO
 
+# Methods
+For the evaluation we used RStudio with the tidyverse packaged....
 
-# Evaluation
+# Results
+Stumpf vorlesen
+
+# Discussion
 TODO
 
 # Conclusion
@@ -222,6 +231,6 @@ TODO
 
 
 # Contributors
-TODO
+- Karl Sassie
 
 # Literatur
