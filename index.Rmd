@@ -4,7 +4,9 @@ title: "Impact of chess elo ratings"
 # Abstract
 TODO: AT THE END!! :-)
 
+
 gdskl<ghieehfiow<
+
 
 # Preface
 In this paper, we present a brief empirical analysis of the dataset from Week 40 of the Tidytuesday project. Tidytuesday is an open-source initiative within the R community that encourages participants to conduct small-scale analyses and create visualizations based on datasets provided weekly.
@@ -217,7 +219,7 @@ For the evaluation we used RStudio with the tidyverse packaged....
 # Results
 Stumpf vorlesen
 
-# Evaluation
+# Discussion
 TODO
 
 # Conclusion
