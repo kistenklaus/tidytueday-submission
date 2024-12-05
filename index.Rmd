@@ -1,6 +1,8 @@
 ---
 title: "Impact of chess elo ratings"
 ---
+# Abstract
+TODO: AT THE END!!
 
 # Preface
 In this paper, we present a brief empirical analysis of the dataset from Week 40 of the Tidytuesday project. Tidytuesday is an open-source initiative within the R community that encourages participants to conduct small-scale analyses and create visualizations based on datasets provided weekly.
@@ -35,6 +37,10 @@ Because these systems differ in implementation and starting points, comparing ra
 In professional over-the-board chess, an interesting aspect of etiquette is the expectation to resign in clearly losing positions. Continuing to play in such situations can be perceived as disrespectful, as it implies doubt about the opponent's ability to convert an obvious advantage into victory. This expectation stems from the assumption that both players possess the skill and knowledge to recognize decisive positions, and prolonging the game unnecessarily might be seen as wasting time or challenging the opponent's competence.
 
 This cultural norm contrasts with casual or beginner-level play, where players are often encouraged to play to checkmate, as their opponent's ability to find a winning sequence may not be guaranteed.
+
+## Time Control
+TODO
+LOREM IPSUM OLOREM
 
 # Preliminary Analysis
 In this section we want to provide a short look at the lichess dataset to 
@@ -173,12 +179,42 @@ This short preliminary analysis, is yet another indicator to the completeness
 of the lichess data set, indicating that the games represented in the dataset 
 do not represent any screw towards higher or lower rated games.
 
+**TODO section about time control distribution in the dataset**
 
-LOREM IPSUM INTRODUCTIO ELOREM
+# Hypothesis
+In this small dissertation, we aim to prove 2 hypothesis.
 
-#### Hypothesis
-1. Games with higher rating more likely end with resign than games with lower rating
-2. At lower ratings the difference between black and white is neglegible
-3. The higher the rating the more likely games are to have more turns.
-4. Games with lower time control end more likely with mate or out of time.
+- **The first move advantage is more prominant in higher rated games.**
+- **Higher rated players are more likely to resign than to be checkmated.**
+
+### Influence of rating on the first move advantage
+As seen in our preliminary research, we found it to be likely that,
+the first move advantage becomes more significant as the level of 
+play increases, this might be indicated by gamemodes like Chess960,
+where the first move advantage is less significant. 
+Further we additionally found sources that state that the first move
+advantage is less likely to be prominent in Blitz games, which might
+also indicate that the level of play as a direct influence on the 
+strength of the first move advantage. 
+Another interessting component of this hypothesis is that compared to our
+preliminary research this work focuses on online chess statistics compared 
+to over the board, where players regardless of their rating might be less
+concentrated, further as lichess compared to other online platforms like 
+chess.com does not play a significant role in the chess community 
+players might treat their rating more casually, which might lead to 
+less optimal play even at higher ratings.
+
+### Influence of rating on game outcomes.
+TODO
+
+
+# Evaluation
+TODO
+
+# Conclusion
+TODO
+
+
+# Contributors
+TODO
 
