@@ -4,15 +4,9 @@ bibliography: references.bib
 csl: apa.csl
 ---
 # Abstract
-TODO: AT THE END!! :-)
-
-
-gdskl<ghieehfiow<
-
+TODO: AT THE END!! 
 
 [@rating]
-
-[@1]
 
 # Preface
 In this paper, we present a brief empirical analysis of the dataset from Week 40 of the Tidytuesday project. Tidytuesday is an open-source initiative within the R community that encourages participants to conduct small-scale analyses and create visualizations based on datasets provided weekly.
@@ -23,31 +17,26 @@ This work was completed as part of the 3-day seminar "Data Literacy in R" at KIT
 
 # Introduction
 ## First move advantage
-The concept of the first-move advantage in chess has been widely recognized since 1889, when the first World Chess Champion, Wilhelm Steinitz, expressed concerns that further analysis of the game might reveal an inherent advantage for White, potentially leading to a "solved" and stagnant game.
+The rules of chess have undergone significant changes over the past 1,500 years, but they were standardized in the 19th century to support national and international competition. While modern chess engines now outperform even the best human players, the question of whether chess is a fundamentally fair game remains unresolved [@fairerchess].
+The concept of the first-move advantage in chess has been widely recognized since 1889, when the first World Chess Champion, Wilhelm Steinitz, expressed concerns that further analysis of the game might reveal an inherent advantage for White, potentially leading to a "solved" and stagnant game [@pandolfini].
 
-Empirical evidence from subsequent World Chess Championships supports the existence of this advantage. Historically, White's win rate has been consistently higher than Black's by approximately 3 to 5 percentage points. This dynamic has influenced competitive strategy, with Black often aiming to neutralize White's initiative and secure a draw. For example, the Berlin Defense has gained notoriety for forcing White to either relinquish its opening advantage or enter draw-prone positions.
-
+Empirical evidence from subsequent World Chess Championships supports the existence of this advantage. Historically, White's win rate has been consistently higher than Black's by approximately 3 to 5 percentage points. This dynamic has influenced competitive strategy, with Black often aiming to neutralize White's initiative and secure a draw.
 Modern chess engines, such as Stockfish, further illustrate the complexities of the first-move advantage. When Stockfish plays against itself, games where White wins are more frequent than games where Black wins, although the vast majority of games still end in a draw. This pattern highlights White's ability to retain a slight edge in optimal play scenarios, even against a perfectly rational opponent.
-
 At the highest levels of chess, this phenomenon has contributed to concerns about the game's stagnation. Bobby Fischer, one of the greatest chess players in history, introduced Fischer Random Chess (also known as Chess960) as an alternative. By randomizing the initial piece setup, Fischer sought to reduce reliance on opening theory and emphasize creativity and tactical skill. Notably, the first-move advantage in Fischer Random is less pronounced, as even professional players tend to make less optimal moves in uncharted positions, diminishing White's edge.
-
 Today, the first-move advantage is universally acknowledged by players and theorists alike. Competitive preparation often involves strategies and openings specifically designed to address this imbalance. Moreover, it is theorized—and supported by empirical data—that the first-move advantage becomes more significant as players approach near-perfect play.
-
+Based on this, this paper examines the hypothesis saying that the first move advantage is more prominant in higher rated games (1).
 
 ## Chess Rating system
 The original chess rating system, known as the Elo system, was introduced in 1950 by Arpad Elo. It assigns players a rating typically ranging from 1000 to 2800 for most competitive players, though theoretically, ratings can extend beyond this range. The system models a player’s skill as a single numerical value and predicts game outcomes based on the difference between two players' ratings. Specifically, it assumes a Gaussian (normal) distribution of player skill, with the probability of victory determined by a logistic function of the rating difference. The Elo system remains in use today by FIDE (the International Chess Federation) for over-the-board chess tournaments.
-
-While the Elo system is widely used, advancements in data collection and research on predictive models have led to the development of more sophisticated rating systems. One such system is Glicko, introduced by Mark Glickman in 1995. Glicko is currently employed by chess.com, one of the largest online chess platforms. Though originally developed for chess, Glicko has been adapted for use in ranking players in other games, such as Counter-Strike, Dota 2, and Team Fortress 2.
-
-An enhanced version of Glicko, known as Glicko-2, was later developed to include a "rating deviation" (RD) component, which accounts for the confidence level of a player's rating. To our knowledge, the only major chess platform currently using Glicko-2 is Lichess.
+While the Elo system is widely used, advancements in data collection and research on predictive models have led to the development of more sophisticated rating systems. One such system is Glicko, introduced by Mark Glickman in 1995. Glicko is currently employed by chess.com, one of the largest online chess platforms [@glicko].
 
 Because these systems differ in implementation and starting points, comparing ratings between platforms can be misleading. For instance, Glicko-1 typically sets new players at an initial rating of 1000, representing the average skill level, while Glicko-2 starts players at 1500, reflecting a different baseline. As a result, direct comparisons between ratings from different systems are not meaningful.
 
-## Over-the-board chess etiquet
-In professional over-the-board chess, an interesting aspect of etiquette is the expectation to resign in clearly losing positions. Continuing to play in such situations can be perceived as disrespectful, as it implies doubt about the opponent's ability to convert an obvious advantage into victory. This expectation stems from the assumption that both players possess the skill and knowledge to recognize decisive positions, and prolonging the game unnecessarily might be seen as wasting time or challenging the opponent's competence.
-
 This cultural norm contrasts with casual or beginner-level play, where players are often encouraged to play to checkmate, as their opponent's ability to find a winning sequence may not be guaranteed.
 
+This paper analyzes a second hopothesis saying that higher rated players are more likely to resign than to be checkmated (2).
+
+ 
 ## Time Control
 TODO
 LOREM IPSUM OLOREM
@@ -226,7 +215,9 @@ For the evaluation we used RStudio with the tidyverse packaged....
 Stumpf vorlesen
 
 # Discussion
-TODO
+
+
+
 
 # Conclusion
 TODO
@@ -236,3 +227,10 @@ TODO
 - Karl Sassie
 
 # Literatur
+
+# Notizen
+Though originally developed for chess, Glicko has been adapted for use in ranking players in other games, such as Counter-Strike, Dota 2, and Team Fortress 2.
+An enhanced version of Glicko, known as Glicko-2, was later developed to include a "rating deviation" (RD) component, which accounts for the confidence level of a player's rating. To our knowledge, the only major chess platform currently using Glicko-2 is Lichess
+
+## Over-the-board chess etiquet
+In professional over-the-board chess, an interesting aspect of etiquette is the expectation to resign in clearly losing positions. Continuing to play in such situations can be perceived as disrespectful, as it implies doubt about the opponent's ability to convert an obvious advantage into victory. This expectation stems from the assumption that both players possess the skill and knowledge to recognize decisive positions, and prolonging the game unnecessarily might be seen as wasting time or challenging the opponent's competence.
