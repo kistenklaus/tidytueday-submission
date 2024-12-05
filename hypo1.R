@@ -1,4 +1,5 @@
 
+
 #### Hypothesis
 # 1. Games with higher rating more likely end with resign than games with lower rating
 
