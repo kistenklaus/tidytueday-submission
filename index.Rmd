@@ -215,7 +215,7 @@ For the evaluation we used RStudio with the tidyverse packaged....
 # Results
 Stumpf vorlesen
 
-# Evaluation
+# Discussion
 TODO
 
 # Conclusion
