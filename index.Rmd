@@ -209,7 +209,26 @@ less optimal play even at higher ratings.
 TODO
 
 # Methods
-For the evaluation we used RStudio with the tidyverse packaged....
+For the evaluation we used RStudio with the tidyverse ecosystem. Our dataset is sourced from
+week ? of the tidy tuesday community project. Although bigger datasets are available at
+the [lichess database](https://database.lichess.org/), we decided to stick with the much 
+simpler and easier to use datasets published by the tidy tuedays community.
+
+To reproduce our results we advise using the R 4.4.2 and 
+packages with the same version.
+
+| Package Name | Description | Version |
+| :- | :- | -: |
+| tidyverse | Opinionated collection of R packages | 2.0.0 |
+| dplyr | data manipulation | 1.1.4 |
+| readr | reading csv files | 2.1.5 |
+| weights | weighted correlation and interpolation | 1.0.4 |
+| easypackages | R package managing | 0.1.0 |
+
+All of our source code is publically available on
+[github](https://github.com/kistenklaus/tidytueday-submission) or 
+visualized in a notebook [here](source.html).
+
 
 # Results
 Stumpf vorlesen
