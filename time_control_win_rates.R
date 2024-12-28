@@ -1,4 +1,3 @@
-
 rm(list = ls())
 
 library(remotes)
@@ -33,7 +32,7 @@ chess <- tuesday_chess %>%
   ) %>%
   dplyr::ungroup() %>%
   # Remove unimportant time controls
-  dplyr::filter(total_games > 250) %>%
+  dplyr::filter(total_games > 100) %>%
   # Sort by time controls
   tidyr::separate(time_increment, into = c("base_time", "increment"), sep = "\\+", convert = TRUE) %>%
   arrange(base_time, increment) %>%

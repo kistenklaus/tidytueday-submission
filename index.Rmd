@@ -231,7 +231,14 @@ visualized in a notebook [here](source.html).
 
 
 # Results
-Stumpf vorlesen
+To evaluate the impact of player ratings on the strength of the first-move advantage, we analyzed only rated games that did not end in a draw. Unrated games were excluded because they cannot provide a reliable basis for correlating ratings with White's winning advantage. Additionally, games that ended in a draw were omitted to focus solely on games with definitive outcomes.
+
+White's win percentage was calculated on the filtered dataset. Next, we grouped games by similar player rating ranges and computed White's win percentage for each group. To ensure statistical significance, we considered only groups with more than 200 games.
+
+The graph below presents the results. Each bar represents White's win percentage within a rating group, with the bar's opacity reflecting the significance of the group, proportional to the number of games played.
+
+Additionally, a weighted linear interpolation line is shown in red. The weighted correlation between player rating and White's win percentage was calculated as -0.4312621, with a p-value of approximately 0.08.
+
 ``` {r message=FALSE, echo=FALSE, fig.align='center'}
 #### Hypothesis
 # 2. At lower ratings the difference between black and white is neglegible
@@ -328,6 +335,16 @@ print(weighted_corr)
 
 *The full source code is available [here](source.html)*
 
+To investigate the influence of time control 
+on the first-move advantage, 
+we analyzed all rated games that did not end in a draw. 
+The games were grouped by time control, 
+and White's win percentage was calculated for each group.
+Similar to the previous analysis, the opacity of each bar 
+in the graph reflects the number of games in the corresponding
+group, providing a visual representation of group
+significance.
+
 ``` {r message=FALSE, echo=FALSE, fig.align='center'}
 rm(list = ls())
 
@@ -394,6 +411,8 @@ ggplot(chess, aes(x = time_increment, y = white_win_rate)) +
     legend.position = "none"  # Removes the legend
   )
 ```
+
+*The full source code is available [here](source.html)*
 
 
 # Discussion
