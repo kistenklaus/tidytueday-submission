@@ -16,8 +16,11 @@ The Week 40 dataset originates from a popular online chess platform and includes
 This work was completed as part of the 3-day seminar "Data Literacy in R" at KIT. As the contributors are neither experts in data science nor chess, we advise against using or referencing this paper in academic or professional contexts.
 
 # Introduction
-## First move advantage
+Chess is a strategic board game played on an 8x8 grid with 64 squares, where each player starts with 16 pieces: a king, a queen, two rooks, two knights, two bishops, and eight pawns. The goal is to checkmate the opponent’s king, meaning the king is trapped and cannot escape capture. Chess is known for its mix of planning, strategy, and quick thinking.
 The rules of chess have undergone significant changes over the past 1,500 years, but they were standardized in the 19th century to support national and international competition. While modern chess engines now outperform even the best human players, the question of whether chess is a fundamentally fair game remains unresolved [@fairerchess].
+
+# Fundamental Concepts
+## First move advantage
 The concept of the first-move advantage in chess has been widely recognized since 1889, when the first World Chess Champion, Wilhelm Steinitz, expressed concerns that further analysis of the game might reveal an inherent advantage for White, potentially leading to a "solved" and stagnant game [@pandolfini].
 
 Empirical evidence from subsequent World Chess Championships supports the existence of this advantage. Historically, White's win rate has been consistently higher than Black's by approximately 3 to 5 percentage points. This dynamic has influenced competitive strategy, with Black often aiming to neutralize White's initiative and secure a draw.
@@ -38,10 +41,23 @@ This paper analyzes a second hopothesis saying that higher rated players are mor
 
  
 ## Time Control
-TODO
-LOREM IPSUM OLOREM
+
+Time control is a fundamental aspect of chess, ensuring that matches conclude within a reasonable timeframe[@timecontrol]. By establishing strict limits on the time each player can use, time controls help prevent games from dragging on and promote a fair pace of play.
+
+Game clocks enforce time controls, with two timers—one for each player—operating independently. When a player makes a move, they press a button on the clock to pause their own timer and start their opponent’s. This setup ensures that both players have an equal opportunity to manage their allotted time.
+
+Time control formats vary widely in tournaments. Some matches employ a "sudden death" system, where each player has a fixed amount of time to complete all their moves. Others use incremental time controls, which add extra seconds or minutes to a player’s clock with each move, helping to alleviate intense time pressure in longer games. Another popular variation is the "delay" system, which provides a short buffer period before the main timer begins to count down.
+
+If a player exceeds the allotted time, the penalty is typically a loss, regardless of the game’s position. This rule introduces a strategic challenge, as players must balance their focus between making optimal moves and managing their time effectively.
+
+"Time pressure" refers to the situation where a player has very little time remaining to complete their moves. This condition often leads to rushed decisions and errors, significantly affecting the quality of play. For competitive players, the ability to handle time pressure is a critical skill, requiring a balance between careful analysis and adherence to the constraints of the clock.
+
+By integrating time controls, chess tournaments foster a structured and competitive environment that tests a player’s strategic thinking, tactical skills, and ability to perform under pressure. Effective time management often becomes a decisive factor, distinguishing top players from the rest.
+
 
 ## Hypothese
+
+TODO
 
 # Preliminary Analysis
 In this section we want to provide a short look at the lichess dataset to 
@@ -206,11 +222,17 @@ players might treat their rating more casually, which might lead to
 less optimal play even at higher ratings.
 
 ### Influence of rating on game outcomes.
-TODO
+A chess game can conclude in one of four ways: a draw, checkmate, time running out, or resignation. We assume that resignation often reflects a player's strategic awareness and their ability to foresee the inevitable outcome of the game. We hypothesize that higher-rated players are more likely to resign than to be checkmated.
+
+This assumption is based on the idea that higher-rated players possess greater expertise and experience, which enable them to accurately evaluate positions and predict outcomes well in advance. When an experienced player recognizes that their position is untenable, they are likely to resign rather than prolong a losing game. This decision is not only practical but also demonstrates a level of sportsmanship, acknowledging the opponent's superior position.
+
+Another assumption is that resigning allows players to conserve time and energy, which can be directed toward analyzing the loss or preparing for future games. It also assumes respect for their opponent’s time, as continuing a game with a clearly lost position may be seen as unnecessary. In contrast, we assume that lower-rated players, who may lack the same depth of strategic insight, are more likely to persist in lost positions, either out of hope for a mistake from their opponent or due to an inability to fully assess the situation.
+
+By examining the behavior of players across different skill levels, this hypothesis aims to highlight how expertise influences decision-making in chess and the nuanced relationship between resignation and skill level. If higher-rated players indeed resign more frequently, it confirms the assumption that they prioritize efficiency and sportsmanship over prolonging an unwinnable game.
 
 # Methods
 For the evaluation we used RStudio with the tidyverse ecosystem. Our dataset is sourced from
-week ? of the tidy tuesday community project. Although bigger datasets are available at
+week 40 of the tidy tuesday community project. Although bigger datasets are available at
 the [lichess database](https://database.lichess.org/), we decided to stick with the much 
 simpler and easier to use datasets published by the tidy tuedays community.
 
@@ -231,6 +253,7 @@ visualized in a notebook [here](source.html).
 
 
 # Results
+## Hypothesis 1
 To evaluate the impact of player ratings on the strength of the first-move advantage, we analyzed only rated games that did not end in a draw. Unrated games were excluded because they cannot provide a reliable basis for correlating ratings with White's winning advantage. Additionally, games that ended in a draw were omitted to focus solely on games with definitive outcomes.
 
 White's win percentage was calculated on the filtered dataset. Next, we grouped games by similar player rating ranges and computed White's win percentage for each group. To ensure statistical significance, we considered only groups with more than 200 games.
@@ -414,8 +437,29 @@ ggplot(chess, aes(x = time_increment, y = white_win_rate)) +
 
 *The full source code is available [here](source.html)*
 
+## Hypothesis 2
+
+The hypothesis that "Higher rated players are more likely to resign than to be checkmated" is supported by our analysis. To explore the impact of player ratings on game outcomes, we categorized games based on the average Elo rating of both players, dividing them into three rating brackets: Low, Medium, and High Elo. Unrated games were excluded from the analysis.
+
+The rating categories were defined as:
+
+    Low Elo: Average rating between 0 and 1400
+    Medium Elo: Average rating between 1400 and 1800
+    High Elo: Average rating above 1800
+
+These ranges were chosen to ensure relatively equal bucket sizes for a fair comparison. Adjusting the exact boundaries would not significantly affect the findings, as the overall trend remains consistent.
+
+The graph below illustrates the likelihood of players resigning versus being checkmated across the three Elo categories. The data shows that as average player rating increases, the tendency to resign rather than face checkmate becomes more pronounced. This behavior reflects higher-rated players' greater strategic awareness and experience, enabling them to recognize losing positions earlier and resign to save time and maintain sportsmanship.
+
+At higher Elo levels, players are more likely to acknowledge a hopeless position and resign rather than prolong the game unnecessarily. In contrast, lower-rated players may not fully assess the irreversibility of their positions and are thus less inclined to resign.
+
+By categorizing games this way, we gain insight into how player ratings influence decisions related to game outcomes, particularly the choice to resign.
+
+As a side effect, we also determined a slight increase in draws and out of time endings with rising elo.
+
 
 # Discussion
+TODO
 
 
 
@@ -426,12 +470,13 @@ TODO
 
 # Contributors
 - Karl Sassie
+- Florian Heinecke-Drescher
 
-# Literatur
-
-# Notizen
+# Notes
 Though originally developed for chess, Glicko has been adapted for use in ranking players in other games, such as Counter-Strike, Dota 2, and Team Fortress 2.
 An enhanced version of Glicko, known as Glicko-2, was later developed to include a "rating deviation" (RD) component, which accounts for the confidence level of a player's rating. To our knowledge, the only major chess platform currently using Glicko-2 is Lichess
 
 ## Over-the-board chess etiquet
 In professional over-the-board chess, an interesting aspect of etiquette is the expectation to resign in clearly losing positions. Continuing to play in such situations can be perceived as disrespectful, as it implies doubt about the opponent's ability to convert an obvious advantage into victory. This expectation stems from the assumption that both players possess the skill and knowledge to recognize decisive positions, and prolonging the game unnecessarily might be seen as wasting time or challenging the opponent's competence.
+
+# Literature
