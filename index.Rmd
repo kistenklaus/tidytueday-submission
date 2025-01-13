@@ -64,14 +64,14 @@ All of our source code is publically available on
 [github](https://github.com/kistenklaus/tidytueday-submission) or 
 visualized in a notebook [here](source.html).
 
-# 3. Results
+To ensure our Dataset reflects our assumptions from the introduction such as the first-move advantage we start by performing a preleminary analysis.
 
-## Preliminary Analysis
+# 3. Exploring the Dataset
+
 In this section we want to provide a short look at the lichess dataset to 
 evaluate its completeness. 
-In the previous section about the first move advantage, we found that in 
-professional over the board games it is generally an accepted truth that 
-the player with the white pieces has a advantage, we now aim to verify that this 
+In the introduction, we showed that in  over the board games it is generally an accepted truth that 
+the player with the white pieces has an advantage, we now aim to verify that this 
 assumption is also true for our lichess dataset. 
 To evaluate this assumption we simly compute the average win percentage across 
 all rated games in our dataset.
@@ -202,6 +202,8 @@ ggplot(player_ratings, aes(x = rating)) +
 This short preliminary analysis, is yet another indicator to the completeness 
 of the lichess data set, indicating that the games represented in the dataset 
 do not represent any screw towards higher or lower rated games.
+
+# 4. Results
 
 ## Hypothesis 1
 To evaluate the impact of player ratings on the strength of the first-move advantage, we analyzed only rated games that did not end in a draw. Unrated games were excluded because they cannot provide a reliable basis for correlating ratings with White's winning advantage. Additionally, games that ended in a draw were omitted to focus solely on games with definitive outcomes.
@@ -408,7 +410,7 @@ By categorizing games this way, we gain insight into how player ratings influenc
 As a side effect, we also determined a slight increase in draws and out of time endings with rising elo.
 
 
-# 4. Discussion
+# 5. Discussion
 
 The findings of this study provide valuable insights into how player ratings affect various aspects of chess games, particularly with regard to the first-move advantage and the influence of time control.
 
@@ -432,7 +434,7 @@ This behavior could be attributed to the fact that high-level players are often 
 
 Additionally, we observed a slight increase in the number of draws and time-out losses as the rating level rises. This phenomenon could be explained by the fact that higher-rated players are more adept at reaching drawn positions or holding out for a time-control victory. As players' understanding of the game deepens, they become better at maneuvering for draws or using their knowledge of time management to secure non-defeat scenarios.
 
-# 5. Conclusion
+# 6. Conclusion
 ## Hypothesis 1
 This study emphasizes the role of player ratings in shaping chess strategies and decision-making. As players progress in skill, their approach to the game becomes less focused on rote memorization of opening moves and more oriented toward understanding complex positional factors. Future research could further investigate how different time controls influence not only the first-move advantage but also strategic choices across varying skill levels.
 
