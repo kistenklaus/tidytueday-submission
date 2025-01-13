@@ -59,11 +59,6 @@ If a player exceeds the allotted time, the penalty is typically a loss, regardle
 
 By integrating time controls, chess tournaments foster a structured and competitive environment that tests a player’s strategic thinking, tactical skills, and ability to perform under pressure. Effective time management often becomes a decisive factor, distinguishing top players from the rest.
 
-
-## Hypothese
-
-TODO
-
 # Preliminary Analysis
 In this section we want to provide a short look at the lichess dataset to 
 evaluate its completeness. 
@@ -201,13 +196,7 @@ This short preliminary analysis, is yet another indicator to the completeness
 of the lichess data set, indicating that the games represented in the dataset 
 do not represent any screw towards higher or lower rated games.
 
-**TODO section about time control distribution in the dataset**
-
 # Hypothesis
-In this small dissertation, we aim to prove 2 hypothesis.
-
-- **The first move advantage is more prominant in higher rated games.**
-- **Higher rated players are more likely to resign than to be checkmated.**
 
 ### Influence of rating on the first move advantage
 As seen in our preliminary research, we found it to be likely that,
@@ -499,15 +488,9 @@ These findings align with expectations and cultural norms in chess, particularly
 Overall, the analysis provides strong evidence supporting the hypothesis and illustrates that behavior in online chess games is closely tied to player skill levels.
 
 # Contributors
-- Karl Sassie
-- Florian Heinecke-Drescher
-- Andreas Kammerer
-
-# Notes
-Though originally developed for chess, Glicko has been adapted for use in ranking players in other games, such as Counter-Strike, Dota 2, and Team Fortress 2.
-An enhanced version of Glicko, known as Glicko-2, was later developed to include a "rating deviation" (RD) component, which accounts for the confidence level of a player's rating. To our knowledge, the only major chess platform currently using Glicko-2 is Lichess
-
-## Over-the-board chess etiquet
-In professional over-the-board chess, an interesting aspect of etiquette is the expectation to resign in clearly losing positions. Continuing to play in such situations can be perceived as disrespectful, as it implies doubt about the opponent's ability to convert an obvious advantage into victory. This expectation stems from the assumption that both players possess the skill and knowledge to recognize decisive positions, and prolonging the game unnecessarily might be seen as wasting time or challenging the opponent's competence.
+- Karl Sassie (2362789)
+- Florian Heinecke-Drescher (1996696)
+- Andreas Kammerer (2213463)
+- Hanna Schweig (2488253)
 
 # Literature
