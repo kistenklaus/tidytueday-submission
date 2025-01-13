@@ -25,7 +25,7 @@ A key element of understanding chess outcomes and strategies lies in the rating 
  
 Platforms like Lichess and Chess.com have adopted these advanced systems, with Lichess utilizing Glicko-2 [@lichessRatings] and starting new players at a baseline rating of 1500. In contrast, Chess.com starts players at 1000, reflecting differences in implementation that make direct comparisons between platforms challenging [@chesscomRatings]. Beyond measuring skill, these systems influence player behavior, strategy, and even tournament pairings, underscoring their central role in modern chess.
 
-Time control is a fundamental aspect of chess, ensuring that matches conclude within a reasonable timeframe[@timecontrol]. By establishing strict limits on the time each player can use, time controls help prevent games from dragging on and promote a fair pace of play.
+Another funamental aspect of chess is Time control, which ensures that matches conclude within a reasonable timeframe[@timecontrol]. By establishing strict limits on the time each player can use, time controls help prevent games from dragging on and promote a fair pace of play.
 
 Game clocks enforce time controls, with two timers—one for each player—operating independently. When a player makes a move, they press a button on the clock to pause their own timer and start their opponent’s. This setup ensures that both players have an equal opportunity to manage their allotted time.
 
