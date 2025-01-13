@@ -18,8 +18,6 @@ This work was completed as part of the 3-day seminar "Data Literacy in R" at KIT
 # 1. Introduction
 
 Chess, a game with a history spanning over 1,500 years, underwent significant evolution before reaching its standardized form in the 19th century. These standardized rules facilitated national and international competition and laid the groundwork for the analytical exploration of chess strategy and fairness. Despite advancements in chess theory and the advent of modern chess engines that outperform even the best human players, questions surrounding the inherent fairness of chess persist. A central focus of these debates is the so-called "first-move advantage," which has been widely acknowledged by players and theorists since the late 19th century [@fairerchess].
-
-## Fundamental Concepts
  
 The first-move advantage refers to the slight edge enjoyed by White, who always makes the opening move. Wilhelm Steinitz, the first World Chess Champion, was among the earliest to speculate that this advantage might render chess a "solved" game, leading to strategic stagnation [@pandolfini]. Empirical studies support this notion, showing that White's win rate in professional games consistently exceeds Black's by approximately 3 to 5 percentage points. Modern chess engines, such as Stockfish, further corroborate this advantage. Even in games between equally matched engines operating under optimal conditions, White wins slightly more often than Black, though the majority of games end in a draw [@WikipediaFirstMoveAdvantage].
  
