@@ -247,7 +247,7 @@ visualized in a notebook [here](source.html).
 
 
 # Results
-## Hypothesis 1
+### Hypothesis 1
 To evaluate the impact of player ratings on the strength of the first-move advantage, we analyzed only rated games that did not end in a draw. Unrated games were excluded because they cannot provide a reliable basis for correlating ratings with White's winning advantage. Additionally, games that ended in a draw were omitted to focus solely on games with definitive outcomes.
 
 White's win percentage was calculated on the filtered dataset. Next, we grouped games by similar player rating ranges and computed White's win percentage for each group. To ensure statistical significance, we considered only groups with more than 200 games.
@@ -431,7 +431,7 @@ ggplot(chess, aes(x = time_increment, y = white_win_rate)) +
 
 *The full source code is available [here](source.html)*
 
-## Hypothesis 2
+### Hypothesis 2
 
 The hypothesis that "Higher rated players are more likely to resign than to be checkmated" is supported by our analysis. To explore the impact of player ratings on game outcomes, we categorized games based on the average Elo rating of both players, dividing them into three rating brackets: Low, Medium, and High Elo. Unrated games were excluded from the analysis.
 
@@ -477,10 +477,10 @@ This behavior could be attributed to the fact that high-level players are often 
 Additionally, we observed a slight increase in the number of draws and time-out losses as the rating level rises. This phenomenon could be explained by the fact that higher-rated players are more adept at reaching drawn positions or holding out for a time-control victory. As players' understanding of the game deepens, they become better at maneuvering for draws or using their knowledge of time management to secure non-defeat scenarios.
 
 # Conclusion
-## Hypothesis 1
+### Hypothesis 1
 This study emphasizes the role of player ratings in shaping chess strategies and decision-making. As players progress in skill, their approach to the game becomes less focused on rote memorization of opening moves and more oriented toward understanding complex positional factors. Future research could further investigate how different time controls influence not only the first-move advantage but also strategic choices across varying skill levels.
 
-## Hypothesis 2
+### Hypothesis 2
 Our analysis confirms the hypothesis that higher-rated players are more likely to resign a game than to be checkmated. This is clearly demonstrated in the Lichess data analysis, which shows a significant correlation between Elo ratings and the likelihood of resignation. Higher-rated players tend to end their games through resignation more often, while lower-rated players are more inclined to play until checkmate.*
  
 These findings align with expectations and cultural norms in chess, particularly in professional settings, where resignation in lost positions is considered appropriate. At the same time, they highlight behavioral differences across skill levels, which may be attributed to factors such as experience, strategic understanding, and the ability to assess one's position accurately.
