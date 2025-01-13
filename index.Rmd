@@ -483,8 +483,14 @@ This behavior could be attributed to the fact that high-level players are often 
 Additionally, we observed a slight increase in the number of draws and time-out losses as the rating level rises. This phenomenon could be explained by the fact that higher-rated players are more adept at reaching drawn positions or holding out for a time-control victory. As players' understanding of the game deepens, they become better at maneuvering for draws or using their knowledge of time management to secure non-defeat scenarios.
 
 # Conclusion
-
-### TODO
+## Hypothesis 1
+TODO
+## Hypothesis 2
+Our analysis confirms the hypothesis that higher-rated players are more likely to resign a game than to be checkmated. This is clearly demonstrated in the Lichess data analysis, which shows a significant correlation between Elo ratings and the likelihood of resignation. Higher-rated players tend to end their games through resignation more often, while lower-rated players are more inclined to play until checkmate.*
+ 
+These findings align with expectations and cultural norms in chess, particularly in professional settings, where resignation in lost positions is considered appropriate. At the same time, they highlight behavioral differences across skill levels, which may be attributed to factors such as experience, strategic understanding, and the ability to assess one's position accurately.
+ 
+Overall, the analysis provides strong evidence supporting the hypothesis and illustrates that behavior in online chess games is closely tied to player skill levels.
 
 # Contributors
 - Karl Sassie
