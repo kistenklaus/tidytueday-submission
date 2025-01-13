@@ -392,6 +392,23 @@ ggplot(chess, aes(x = time_increment, y = white_win_rate)) +
 *The full source code is available [here](source.html)*
 
 ### Hypothesis 2
+
+The hypothesis that "Higher rated players are more likely to resign than to be checkmated" is supported by our analysis. To explore the impact of player ratings on game outcomes, we categorized games based on the average Elo rating of both players, dividing them into three rating brackets: Low, Medium, and High Elo. Unrated games were excluded from the analysis.
+
+The rating categories were defined as:
+
+    Low Elo: Average rating between 0 and 1400
+    Medium Elo: Average rating between 1400 and 1600
+    High Elo: Average rating above 1600
+
+These ranges were chosen to ensure relatively equal bucket sizes for a fair comparison. Adjusting the exact boundaries would not significantly affect the findings, as the overall trend remains consistent.
+
+The graph below illustrates the likelihood of players resigning versus being checkmated across the three Elo categories. The data shows that as average player rating increases, the tendency to resign rather than face checkmate becomes more pronounced. This behavior reflects higher-rated players' greater strategic awareness and experience, enabling them to recognize losing positions earlier and resign to save time and maintain sportsmanship.
+
+At higher Elo levels, players are more likely to acknowledge a hopeless position and resign rather than prolong the game unnecessarily. In contrast, lower-rated players may not fully assess the irreversibility of their positions and are thus less inclined to resign.
+
+By categorizing games this way, we gain insight into how player ratings influence decisions related to game outcomes, particularly the choice to resign.
+
 ``` {r message=FALSE, echo=FALSE, fig.align='center'}
 rm(list = ls())
 library(remotes)
@@ -426,10 +443,10 @@ chess <- tuesday_chess %>%
 
 # Get the maximum rating
 white_max_rating <- max(chess$white_rating, na.rm = TRUE)
-print(white_max_rating)
+# print(white_max_rating)
 
 black_max_rating <- max(chess$black_rating, na.rm = TRUE)
-print(black_max_rating)
+# print(black_max_rating)
 
 # Calculate the average rating for each game and categorize
 chess <- chess %>%
@@ -437,13 +454,13 @@ chess <- chess %>%
     avg_rating = (white_rating + black_rating) / 2, # Add avg_rating
     rating_category = cut(
       avg_rating,
-      breaks = c(0, 1400, 1800, Inf), # Define rating bins
+      breaks = c(0, 1400, 1600, Inf), # Define rating bins
       labels = c("Low", "Medium", "High")
     )
   )
 
 # View summary of rating categories
-summary(chess$rating_category)
+# summary(chess$rating_category)
 
 # Group by rating category and victory status, calculate proportions
 proportions <- chess %>%
@@ -453,7 +470,7 @@ proportions <- chess %>%
   mutate(proportion = count / sum(count))
 
 # View the proportions table
-print(proportions)
+# print(proportions)
 
 # Load ggplot2
 library(ggplot2)
@@ -483,25 +500,6 @@ ggplot(proportions, aes(x = rating_category, y = proportion, fill = victory_stat
 
 
 ```
-
-The hypothesis that "Higher rated players are more likely to resign than to be checkmated" is supported by our analysis. To explore the impact of player ratings on game outcomes, we categorized games based on the average Elo rating of both players, dividing them into three rating brackets: Low, Medium, and High Elo. Unrated games were excluded from the analysis.
-
-The rating categories were defined as:
-
-    Low Elo: Average rating between 0 and 1400
-    Medium Elo: Average rating between 1400 and 1800
-    High Elo: Average rating above 1800
-
-These ranges were chosen to ensure relatively equal bucket sizes for a fair comparison. Adjusting the exact boundaries would not significantly affect the findings, as the overall trend remains consistent.
-
-The graph below illustrates the likelihood of players resigning versus being checkmated across the three Elo categories. The data shows that as average player rating increases, the tendency to resign rather than face checkmate becomes more pronounced. This behavior reflects higher-rated players' greater strategic awareness and experience, enabling them to recognize losing positions earlier and resign to save time and maintain sportsmanship.
-
-At higher Elo levels, players are more likely to acknowledge a hopeless position and resign rather than prolong the game unnecessarily. In contrast, lower-rated players may not fully assess the irreversibility of their positions and are thus less inclined to resign.
-
-By categorizing games this way, we gain insight into how player ratings influence decisions related to game outcomes, particularly the choice to resign.
-
-As a side effect, we also determined a slight increase in draws and out of time endings with rising elo.
-
 
 # 5. Discussion
 
