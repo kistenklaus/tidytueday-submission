@@ -1,10 +1,7 @@
 ---
-title: "Source code"
+title: "Source Code for Hypothesis 1"
 ---
-
-## Preliminary
-
-### First move advantage in the lichess dataset
+### Data Exploration
 ``` {r message=FALSE, fig.align='center'}
 rm(list = ls())
 

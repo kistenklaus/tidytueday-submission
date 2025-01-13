@@ -1,0 +1,95 @@
+---
+title: "Source Code for Hypothesis 2"
+---
+
+### Games with higher rating more likely end with resign than games with lower rating
+
+``` {r message=FALSE, fig.align='center'}
+rm(list = ls())
+
+library(remotes)
+options(repos = "https://cloud.r-project.org/")
+if (!require("easypackages")) {
+  install.packages("easypackages")
+  library(easypackages)
+} else {
+  library(easypackages)
+}
+packages(
+  "tidyverse",
+  "tidytuesdayR",
+  "dplyr",
+  "readr",
+  prompt = FALSE
+)
+
+# Load necessary libraries
+library(dplyr)
+library(readr)
+
+# Load the dataset
+tuesday_chess <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2024/2024-10-01/chess.csv')
+
+# Filter and select relevant columns
+chess <- tuesday_chess %>%
+  filter(rated == TRUE) %>% # Fix logical comparison
+  select(victory_status, white_rating, black_rating)
+
+# Get the maximum rating
+white_max_rating <- max(chess$white_rating, na.rm = TRUE)
+print(white_max_rating)
+
+black_max_rating <- max(chess$black_rating, na.rm = TRUE)
+print(black_max_rating)
+
+# Calculate the average rating for each game and categorize
+chess <- chess %>%
+  mutate(
+    avg_rating = (white_rating + black_rating) / 2, # Add avg_rating
+    rating_category = cut(
+      avg_rating,
+      breaks = c(0, 1400, 1800, Inf), # Define rating bins
+      labels = c("Low", "Medium", "High")
+    )
+  )
+
+# View summary of rating categories
+summary(chess$rating_category)
+
+# Group by rating category and victory status, calculate proportions
+proportions <- chess %>%
+  group_by(rating_category, victory_status) %>%
+  summarize(count = n(), .groups = 'drop') %>%
+  group_by(rating_category) %>%
+  mutate(proportion = count / sum(count))
+
+# View the proportions table
+print(proportions)
+
+# Load ggplot2
+library(ggplot2)
+
+# Create a bar plot of proportions with counts as labels
+ggplot(proportions, aes(x = rating_category, y = proportion, fill = victory_status)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  geom_text(
+    aes(label = count),
+    position = position_dodge(width = 0.9),
+    vjust = -0.5,
+    size = 3.5
+  ) +
+  labs(
+    title = "Proportion and Count of Victory Status by Rating Category",
+    x = "Rating Category",
+    y = "Proportion",
+    fill = "Victory Status"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
+    axis.text = element_text(size = 12),
+    axis.title = element_text(size = 14)
+  )
+
+
+```

@@ -500,6 +500,7 @@ ggplot(proportions, aes(x = rating_category, y = proportion, fill = victory_stat
 
 
 ```
+*The full source code is available [here](source2.html)*
 
 # 5. Discussion
 
